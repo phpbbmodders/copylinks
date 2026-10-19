@@ -1,0 +1,38 @@
+{
+	"name": "phpbbmodders/copylinks",
+	"type": "phpbb-extension",
+	"description": "Click a forum, topic, post or FAQ heading to copy a link to it, ready-made as BBCode.",
+	"homepage": "https://www.phpbbmodders.com/",
+	"version": "1.0.0-dev",
+	"time": "2026-10-19",
+	"keywords": [
+		"phpbb",
+		"extension",
+		"copy link",
+		"bbcode",
+		"clipboard"
+	],
+	"license": "GPL-2.0-only",
+	"authors": [
+		{
+			"name": "phpBB Modders",
+			"email": "board@phpbbmodders.com",
+			"homepage": "https://www.phpbbmodders.com/",
+			"role": "Extension Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.4",
+		"phpbb/phpbb": ">=3.3.19,<4.1.0@dev",
+		"composer/installers": "^1.0 || ^2.0"
+	},
+	"require-dev": {
+		"phpbb/epv": "dev-master"
+	},
+	"extra": {
+		"display-name": "Copy Links",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.3.19,<4.1.0@dev"
+		}
+	}
+}
