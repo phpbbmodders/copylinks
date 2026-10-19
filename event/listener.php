@@ -18,6 +18,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class listener implements EventSubscriberInterface
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
 	/** @var \phpbb\template\template */
 	protected $template;
 
@@ -25,11 +28,13 @@ class listener implements EventSubscriberInterface
 	protected $php_ext;
 
 	/**
+	 * @param \phpbb\config\config		$config		Config object
 	 * @param \phpbb\template\template	$template	Template object
 	 * @param string					$php_ext	PHP file extension
 	 */
-	public function __construct(\phpbb\template\template $template, $php_ext)
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, $php_ext)
 	{
+		$this->config = $config;
 		$this->template = $template;
 		$this->php_ext = $php_ext;
 	}
@@ -62,13 +67,15 @@ class listener implements EventSubscriberInterface
 
 	/**
 	 * Pass the board URL and PHP file extension to the page script, so copied
-	 * links are absolute and never carry a session ID.
+	 * links are absolute and never carry a session ID, and the icon to show
+	 * next to copyable headings (empty when the icon is turned off).
 	 */
 	public function assign_template_vars()
 	{
 		$this->template->assign_vars([
 			'COPYLINKS_BOARD_URL'	=> generate_board_url() . '/',
 			'COPYLINKS_PHP_EXT'		=> $this->php_ext,
+			'COPYLINKS_ICON'		=> !empty($this->config['copylinks_icon_enable']) ? (string) $this->config['copylinks_icon'] : '',
 		]);
 	}
 }
