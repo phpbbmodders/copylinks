@@ -9,11 +9,13 @@ Click a forum, topic, post or FAQ heading to copy a link to it, ready-made as BB
 - Click a forum or topic title, a post subject, or a question in the FAQ or BBCode guide, and a link to it is copied as BBCode, for example `[url=https://example.com/forum/viewtopic.php?t=42]Topic title[/url]`. Paste it into a post and it shows as a readable link.
 - Also works on the title above the posting form and on the posts in the topic review below it.
 - Links are full addresses built from the forum, topic or post ID, so they work anywhere they're pasted and never carry a session ID. They always point at the forum, topic or post itself, not a page of it.
-- A tick shows for a moment after copying, and screen readers announce "The link has been copied."
+- A small icon (Font Awesome `fa-clone` by default) marks each copyable heading and turns into a tick for a moment after copying. Screen readers announce "The link has been copied."
+- Built for keyboard and screen reader use: headings stay ordinary links reached with Tab and copied with Enter, each one is described as "Copy a link to this as BBCode", the icon is hidden from screen readers, and focus is always clearly outlined.
 - Ctrl-, Cmd-, Shift- and middle-clicks still open the link as usual.
 - When the browser won't allow copying (for example a board on plain `http://`), the BBCode is shown in a box to copy by hand.
 - Search engine bots get the board unchanged.
-- No settings. Works with prosilver and styles based on it.
+- Turn the icon on or off, or choose another icon, under **ACP → Extensions → Copy Links → Settings**.
+- Works with prosilver and styles based on it.
 
 ## Requirements
 

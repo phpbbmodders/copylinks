@@ -2,6 +2,7 @@ services:
     phpbbmodders.copylinks.listener:
         class: phpbbmodders\copylinks\event\listener
         arguments:
+            - '@config'
             - '@template'
             - '%core.php_ext%'
         tags:

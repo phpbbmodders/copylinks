@@ -19,12 +19,16 @@
 
 	var boardUrl = status.getAttribute('data-board-url');
 	var phpExt = status.getAttribute('data-php-ext');
+	var icon = status.getAttribute('data-icon');
 	var hint = status.getAttribute('data-hint');
 	var copiedMessage = status.getAttribute('data-copied');
 	var failedMessage = status.getAttribute('data-copy-failed');
 
 	// How long the tick and the status message stay, in milliseconds
 	var SHOW_COPIED_FOR = 2000;
+
+	// Font Awesome icon shown for a moment after copying, in place of the icon
+	var COPIED_ICON = 'fa-check';
 
 	/**
 	 * Collapse whitespace in an element's text.
@@ -103,7 +107,13 @@
 	 * @param {Element} target
 	 */
 	function showCopied(target) {
+		var targetIcon = target.querySelector('.copylinks-icon');
+
 		target.classList.add('copylinks-copied');
+		if (targetIcon) {
+			targetIcon.classList.remove(icon);
+			targetIcon.classList.add(COPIED_ICON);
+		}
 
 		// Clear first so the same message is read out again on a repeat copy
 		status.textContent = '';
@@ -111,8 +121,15 @@
 			status.textContent = copiedMessage;
 		}, 50);
 
-		window.setTimeout(function () {
+		// A repeat copy restarts the timer instead of being cut short by the
+		// previous one
+		window.clearTimeout(target.copylinksTimer);
+		target.copylinksTimer = window.setTimeout(function () {
 			target.classList.remove('copylinks-copied');
+			if (targetIcon) {
+				targetIcon.classList.remove(COPIED_ICON);
+				targetIcon.classList.add(icon);
+			}
 			status.textContent = '';
 		}, SHOW_COPIED_FOR);
 	}
@@ -150,6 +167,16 @@
 		element.setAttribute('data-copylinks', kind);
 		element.setAttribute('title', hint);
 		element.setAttribute('aria-describedby', 'copylinks-hint');
+
+		// Optional icon showing the heading can be copied. It is decorative:
+		// the hint above already tells screen reader users.
+		if (icon) {
+			var iconElement = document.createElement('i');
+			iconElement.className = 'icon fas fa-fw copylinks-icon ' + icon;
+			iconElement.setAttribute('aria-hidden', 'true');
+			element.appendChild(iconElement);
+			element.classList.add('copylinks-has-icon');
+		}
 	}
 
 	// Forum and topic titles, and the posting page title

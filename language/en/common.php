@@ -19,7 +19,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'COPYLINKS_HINT'		=> 'Click to copy a link to this as BBCode.',
+	'COPYLINKS_HINT'		=> 'Copy a link to this as BBCode',
 	'COPYLINKS_COPIED'		=> 'The link has been copied.',
 	'COPYLINKS_COPY_FAILED'	=> 'The link could not be copied automatically. Copy it from here:',
 ]);

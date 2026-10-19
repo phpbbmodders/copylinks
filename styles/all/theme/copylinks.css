@@ -4,13 +4,31 @@
 	cursor: copy;
 }
 
-/* Tick shown for a moment after a successful copy */
+/* Make keyboard focus clearly visible, whatever the style does for links */
+.copylinks-target:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+/* Icon showing a heading can be copied; it turns into a tick after copying */
+.copylinks-icon {
+	margin-inline-start: 0.3em;
+	font-size: 0.8em;
+}
+
+/* Tick shown for a moment after a successful copy, when the icon is off.
+   The "/ ''" part keeps screen readers from reading the tick out. */
 .copylinks-target::after {
 	content: "\2713";
+	content: "\2713" / "";
 	display: inline-block;
 	margin-inline-start: 0.3em;
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;
+}
+
+.copylinks-has-icon::after {
+	content: none;
 }
 
 .copylinks-copied::after {
