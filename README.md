@@ -17,6 +17,18 @@ Click a forum, topic, post or FAQ heading to copy a link to it, ready-made as BB
 - Turn the icon on or off, or choose another icon, under **ACP → Extensions → Copy Links → Settings**.
 - Works with prosilver and styles based on it.
 
+## Screenshots
+
+<table>
+<tr>
+<td><a href="docs/images/screenshots/copylinks-topic.png"><img src="docs/images/screenshots/copylinks-topic.png" width="280" alt="Tick after copying a topic title"></a></td>
+<td><a href="docs/images/screenshots/copylinks-faq.png"><img src="docs/images/screenshots/copylinks-faq.png" width="280" alt="Tick after copying an FAQ question"></a></td>
+<td><a href="docs/images/screenshots/copylinks-acp-settings.png"><img src="docs/images/screenshots/copylinks-acp-settings.png" width="280" alt="ACP settings"></a></td>
+</tr>
+</table>
+
+Click an image for the full size. See the [screenshot gallery](docs/images/screenshots/README.md) for the rest.
+
 ## Requirements
 
 - phpBB 3.3.19 or later, including phpBB 4.0
