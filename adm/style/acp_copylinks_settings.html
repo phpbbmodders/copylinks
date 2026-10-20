@@ -8,12 +8,12 @@
 		<legend>{{ lang('ACP_COPYLINKS_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="copylinks_icon_enable">{{ lang('COPYLINKS_ICON_ENABLE') }}{{ lang('COLON') }}</label><br><span id="copylinks_icon_enable_explain">{{ lang('COPYLINKS_ICON_ENABLE_EXPLAIN') }}</span></dt>
-			<dd><input type="checkbox" id="copylinks_icon_enable" name="copylinks_icon_enable" value="1" aria-describedby="copylinks_icon_enable_explain"{% if COPYLINKS_ICON_ENABLE %} checked{% endif %}></dd>
+			<dd><input type="checkbox" id="copylinks_icon_enable" name="copylinks_icon_enable" value="1" aria-describedby="copylinks_icon_enable_explain"{% if S_COPYLINKS_ICON_ENABLE %} checked{% endif %}></dd>
 		</dl>
 		<dl>
 			<dt><label for="copylinks_icon">{{ lang('COPYLINKS_ICON') }}{{ lang('COLON') }}</label><br><span id="copylinks_icon_explain">{{ lang('COPYLINKS_ICON_EXPLAIN') }}</span></dt>
 			<dd>
-				<input type="text" id="copylinks_icon" name="copylinks_icon" value="{{ COPYLINKS_ICON|e('html_attr') }}" maxlength="64" required pattern="fa-[a-z0-9]+(-[a-z0-9]+)*" spellcheck="false" autocomplete="off" aria-describedby="copylinks_icon_explain">
+				<input type="text" id="copylinks_icon" name="copylinks_icon" value="{{ COPYLINKS_ICON|e('html_attr') }}" maxlength="{{ COPYLINKS_ICON_MAX_LENGTH }}" required pattern="fa-[a-z0-9]+(-[a-z0-9]+)*" spellcheck="false" autocomplete="off" aria-describedby="copylinks_icon_explain">
 				<i class="icon {{ COPYLINKS_ICON|e('html_attr') }} fas fa-fw" aria-hidden="true" title="{{ lang('COPYLINKS_ICON_PREVIEW')|e('html_attr') }}"></i>
 			</dd>
 		</dl>

@@ -19,6 +19,9 @@ class main_module
 	/** Icon used when the setting has never been saved */
 	const DEFAULT_ICON = 'fa-clone';
 
+	/** Longest icon class accepted; the form field has the same limit */
+	const MAX_ICON_LENGTH = 64;
+
 	public $u_action;
 	public $tpl_name;
 	public $page_title;
@@ -45,12 +48,12 @@ class main_module
 			}
 
 			$icon = trim($request->variable('copylinks_icon', self::DEFAULT_ICON));
-			if (!preg_match('/\Afa-[a-z0-9]+(?:-[a-z0-9]+)*\z/', $icon))
+			if (strlen($icon) > self::MAX_ICON_LENGTH || !preg_match('/\Afa-[a-z0-9]+(?:-[a-z0-9]+)*\z/', $icon))
 			{
 				trigger_error($language->lang('COPYLINKS_ICON_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
-			$config->set('copylinks_icon_enable', $request->variable('copylinks_icon_enable', 0) ? 1 : 0);
+			$config->set('copylinks_icon_enable', (int) $request->variable('copylinks_icon_enable', false));
 			$config->set('copylinks_icon', $icon);
 
 			$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_COPYLINKS_SETTINGS');
@@ -59,8 +62,9 @@ class main_module
 
 		$template->assign_vars([
 			'U_ACTION'					=> $this->u_action,
-			'COPYLINKS_ICON_ENABLE'		=> !empty($config['copylinks_icon_enable']),
+			'S_COPYLINKS_ICON_ENABLE'	=> !empty($config['copylinks_icon_enable']),
 			'COPYLINKS_ICON'			=> !empty($config['copylinks_icon']) ? $config['copylinks_icon'] : self::DEFAULT_ICON,
+			'COPYLINKS_ICON_MAX_LENGTH'	=> self::MAX_ICON_LENGTH,
 		]);
 	}
 }

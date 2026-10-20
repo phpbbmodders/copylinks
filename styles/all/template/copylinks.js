@@ -27,6 +27,10 @@
 	// How long the tick and the status message stay, in milliseconds
 	var SHOW_COPIED_FOR = 2000;
 
+	// Pause before the status message is set, so screen readers notice the
+	// change even when the same message is announced twice in a row
+	var ANNOUNCE_DELAY = 50;
+
 	// Font Awesome icon shown for a moment after copying, in place of the icon
 	var COPIED_ICON = 'fa-check';
 
@@ -119,7 +123,7 @@
 		status.textContent = '';
 		window.setTimeout(function () {
 			status.textContent = copiedMessage;
-		}, 50);
+		}, ANNOUNCE_DELAY);
 
 		// A repeat copy restarts the timer instead of being cut short by the
 		// previous one
