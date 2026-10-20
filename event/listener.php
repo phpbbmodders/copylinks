@@ -73,7 +73,7 @@ class listener implements EventSubscriberInterface
 	public function assign_template_vars()
 	{
 		$this->template->assign_vars([
-			'COPYLINKS_BOARD_URL'	=> generate_board_url() . '/',
+			'U_COPYLINKS_BOARD'		=> generate_board_url() . '/',
 			'COPYLINKS_PHP_EXT'		=> $this->php_ext,
 			'COPYLINKS_ICON'		=> !empty($this->config['copylinks_icon_enable']) ? (string) $this->config['copylinks_icon'] : '',
 		]);
