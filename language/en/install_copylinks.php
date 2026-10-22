@@ -19,5 +19,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'COPYLINKS_NOT_ENABLEABLE'	=> 'Copy Links needs phpBB 3.3.19 or newer and PHP 7.4 or newer.',
+	'COPYLINKS_NOT_ENABLEABLE'	=> 'Copy Links needs phpBB 3.3.19 or newer and PHP 8.3.36 or newer.',
 ]);
