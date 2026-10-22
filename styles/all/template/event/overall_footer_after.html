@@ -1,11 +1,12 @@
 {% if not S_IS_BOT %}
 	<div id="copylinks-status" class="copylinks-sr-only" role="status" aria-live="polite"
+		data-plain-url="{% if S_COPYLINKS_PLAIN_URL %}1{% else %}0{% endif %}"
 		data-board-url="{{ U_COPYLINKS_BOARD|e('html_attr') }}"
 		data-php-ext="{{ COPYLINKS_PHP_EXT|e('html_attr') }}"
 		data-icon="{{ COPYLINKS_ICON|e('html_attr') }}"
 		data-copied="{{ lang('COPYLINKS_COPIED')|e('html_attr') }}"
 		data-copy-failed="{{ lang('COPYLINKS_COPY_FAILED')|e('html_attr') }}"
-		data-hint="{{ lang('COPYLINKS_HINT')|e('html_attr') }}"></div>
-	<span id="copylinks-hint" hidden>{{ lang('COPYLINKS_HINT') }}</span>
+		data-hint="{{ lang(S_COPYLINKS_PLAIN_URL ? 'COPYLINKS_HINT_PLAIN' : 'COPYLINKS_HINT')|e('html_attr') }}"></div>
+	<span id="copylinks-hint" hidden>{{ lang(S_COPYLINKS_PLAIN_URL ? 'COPYLINKS_HINT_PLAIN' : 'COPYLINKS_HINT') }}</span>
 	{% INCLUDEJS '@phpbbmodders_copylinks/copylinks.js' %}
 {% endif %}

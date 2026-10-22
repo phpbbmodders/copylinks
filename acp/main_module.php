@@ -11,8 +11,7 @@
 namespace phpbbmodders\copylinks\acp;
 
 /**
- * ACP settings page: whether to show an icon next to copyable headings, and
- * which Font Awesome icon to use.
+ * ACP settings page: copy format and the icon next to copyable headings.
  */
 class main_module
 {
@@ -55,12 +54,14 @@ class main_module
 
 			$config->set('copylinks_icon_enable', (int) $request->variable('copylinks_icon_enable', false));
 			$config->set('copylinks_icon', $icon);
+			$config->set('copylinks_plain_url', (int) $request->variable('copylinks_plain_url', false));
 
 			$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_COPYLINKS_SETTINGS');
 			trigger_error($language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars([
+			'S_COPYLINKS_PLAIN_URL'	=> !empty($config['copylinks_plain_url']),
 			'U_ACTION'					=> $this->u_action,
 			'S_COPYLINKS_ICON_ENABLE'	=> !empty($config['copylinks_icon_enable']),
 			'COPYLINKS_ICON'			=> !empty($config['copylinks_icon']) ? $config['copylinks_icon'] : self::DEFAULT_ICON,
