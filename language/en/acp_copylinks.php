@@ -19,7 +19,9 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'ACP_COPYLINKS_SETTINGS_EXPLAIN'	=> 'Forum, topic, post and FAQ headings copy a link to themselves as BBCode when clicked. These settings change how those headings look.',
+	'COPYLINKS_PLAIN_URL'				=> 'Copy plain URLs',
+	'COPYLINKS_PLAIN_URL_EXPLAIN'		=> 'Copy the full address without BBCode. Leave this off to copy a BBCode link with the heading as its text.',
+	'ACP_COPYLINKS_SETTINGS_EXPLAIN'	=> 'Forum, topic, post and FAQ headings copy a link to themselves when clicked. These settings control the copied format and how those headings look.',
 	'COPYLINKS_ICON_ENABLE'				=> 'Show an icon next to copyable headings',
 	'COPYLINKS_ICON_ENABLE_EXPLAIN'		=> 'The icon shows that a heading can be copied, and turns into a tick for a moment after copying. When it is off, only the tick shows after copying.',
 	'COPYLINKS_ICON'					=> 'Icon',

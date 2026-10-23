@@ -2,7 +2,7 @@
  * Copy Links extension for the phpBB Forum Software package
  *
  * Turns forum, topic, post and FAQ headings into "copy link" controls. A
- * click copies [url=<absolute link>]<heading text>[/url] to the clipboard.
+ * click copies a BBCode link or a plain URL to the clipboard.
  * Links are built from IDs, so they never carry a session ID, and always point
  * at the forum, topic or post itself rather than a page within it.
  *
@@ -17,6 +17,7 @@
 		return;
 	}
 
+	var plainUrl = status.getAttribute('data-plain-url') === '1';
 	var boardUrl = status.getAttribute('data-board-url');
 	var phpExt = status.getAttribute('data-php-ext');
 	var icon = status.getAttribute('data-icon');
@@ -222,6 +223,12 @@
 		}
 
 		event.preventDefault();
-		copy(target, bbcodeFor(url, headingText(target)));
+		// Keep the activated link focused and restore same-page anchor targeting.
+		var fragment = target.getAttribute('href').split('#')[1];
+		if (fragment && document.getElementById(fragment)) {
+			window.location.hash = fragment;
+		}
+		target.focus({preventScroll: true});
+		copy(target, plainUrl ? url : bbcodeFor(url, headingText(target)));
 	});
 })();

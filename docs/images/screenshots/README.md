@@ -22,6 +22,6 @@ Clicking a question in the FAQ copies a link to that question.
 
 ## ACP settings
 
-**Extensions → Copy Links → Settings**: turn the icon on or off, and choose which Font Awesome icon it is. With the icon off, only the tick shows after a copy.
+**Extensions → Copy Links → Settings**: choose plain URLs or BBCode (the default), turn the icon on or off, and choose which Font Awesome icon it is. With the icon off, only the tick shows after a copy.
 
-<a href="copylinks-acp-settings.png"><img src="copylinks-acp-settings.png" width="700" alt="ACP settings"></a>
+<a href="copylinks-acp-settings.png"><img src="copylinks-acp-settings.png" width="700" height="492" alt="ACP settings"></a>

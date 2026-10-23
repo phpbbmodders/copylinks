@@ -7,6 +7,10 @@
 	<fieldset>
 		<legend>{{ lang('ACP_COPYLINKS_SETTINGS') }}</legend>
 		<dl>
+			<dt><label for="copylinks_plain_url">{{ lang('COPYLINKS_PLAIN_URL') }}{{ lang('COLON') }}</label><br><span id="copylinks_plain_url_explain">{{ lang('COPYLINKS_PLAIN_URL_EXPLAIN') }}</span></dt>
+			<dd><input type="checkbox" id="copylinks_plain_url" name="copylinks_plain_url" value="1" aria-describedby="copylinks_plain_url_explain"{% if S_COPYLINKS_PLAIN_URL %} checked{% endif %}></dd>
+		</dl>
+		<dl>
 			<dt><label for="copylinks_icon_enable">{{ lang('COPYLINKS_ICON_ENABLE') }}{{ lang('COLON') }}</label><br><span id="copylinks_icon_enable_explain">{{ lang('COPYLINKS_ICON_ENABLE_EXPLAIN') }}</span></dt>
 			<dd><input type="checkbox" id="copylinks_icon_enable" name="copylinks_icon_enable" value="1" aria-describedby="copylinks_icon_enable_explain"{% if S_COPYLINKS_ICON_ENABLE %} checked{% endif %}></dd>
 		</dl>
