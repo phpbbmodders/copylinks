@@ -5,8 +5,8 @@ extension enabled. Set `COPYLINKS_TEST_URL` to a topic containing at least two
 code blocks, including multiline code with indentation, blank lines and Unicode.
 The script checks exact clipboard contents, multiple blocks, repeated copying,
 Enter and Space, visible feedback, the status region, manual-copy selection after denied, missing or insecure clipboard access and recovery, focus,
-a 320-pixel viewport, existing heading copying and Select all, and content
-availability with JavaScript disabled. Clipboard writes are stubbed.
+a 320-pixel viewport, existing heading copying, one code control with JavaScript,
+and the original Select all link and content with JavaScript disabled. Clipboard writes are stubbed.
 
 Run with Node.js and Playwright available in the environment:
 

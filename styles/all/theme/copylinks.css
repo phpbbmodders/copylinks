@@ -55,9 +55,8 @@
 	}
 }
 
-/* Text button beside Select all, using the codebox header's typography. */
+/* Copy control using the codebox header's typography. */
 .codebox .copylinks-code {
-	margin-inline-start: 0.75em;
 	padding: 0;
 	border: 0;
 	background: transparent;

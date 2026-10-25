@@ -22,11 +22,11 @@ Clicking a question in the FAQ copies a link to that question.
 
 ## Code block
 
-The separate **Copy code** button copies plain code without BBCode. **Select all**
-remains available. This Playwright screenshot shows the success label on phpBB
-3.3 after an actual clipboard write and read.
+**Copy code** replaces **Select all** when JavaScript runs. With JavaScript off,
+the original link remains. The screenshot shows the success label on phpBB 3.3,
+captured with the shared screenshot tool using a controlled clipboard outcome.
 
-<a href="copylinks-code.png"><img src="copylinks-code.png" width="700" height="85" alt="Copied feedback beside Select all in a code block"></a>
+<a href="copylinks-code.png"><img src="copylinks-code.png" width="700" height="73" alt="Single code-copy control showing Copied feedback"></a>
 
 ## ACP settings
 

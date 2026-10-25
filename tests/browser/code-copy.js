@@ -28,6 +28,8 @@ const { chromium } = require('playwright');
 		const buttons = page.locator('.copylinks-code');
 		await buttons.first().waitFor();
 		assert.ok(await buttons.count() >= 2, 'fixture needs two code blocks');
+		assert.equal(await page.locator('.codebox p a[onclick*="selectCode("]').count(), 0, 'Select all is replaced when JavaScript runs');
+		assert.equal(await buttons.count(), await page.locator('.codebox pre > code').count());
 		const expected = await page.locator('.codebox pre > code').allInnerTexts();
 		const first = buttons.first();
 		await first.click();
@@ -43,10 +45,6 @@ const { chromium } = require('playwright');
 		await page.waitForFunction(() => window.copiedTexts.length === 4);
 		assert.equal(await page.evaluate(() => window.copiedTexts[3]), expected[1]);
 		await page.waitForFunction(() => Array.from(document.querySelectorAll('.copylinks-code')).every(button => button.textContent === 'Copy code'));
-		await page.locator('.codebox p a').first().click();
-		// Chromium's native selection omits the final block newline.
-		assert.equal(await page.evaluate(() => window.getSelection().toString()), expected[0].replace(/\n$/, ''));
-		assert.equal(await page.evaluate(() => window.copiedTexts.length), 4);
 
 		// Existing heading copying still uses the configured output format.
 		await page.locator('h2.topic-title > a').click();
@@ -100,10 +98,11 @@ const { chromium } = require('playwright');
 		const plainPage = await noJS.newPage();
 		await plainPage.goto(process.env.COPYLINKS_TEST_URL);
 		assert.equal(await plainPage.locator('.copylinks-code').count(), 0);
-		assert.ok(await plainPage.locator('.codebox p a').count() >= 2);
+		assert.ok(await plainPage.locator('.codebox p a[onclick*="selectCode("]').count() >= 2);
+		assert.equal(await plainPage.getByRole('link', {name: 'Select all', exact: true}).count(), expected.length);
 		assert.deepEqual(await plainPage.locator('.codebox pre > code').allTextContents(), expected);
 		await noJS.close();
-		console.log('PASS: exact code, multiple blocks, Enter/Space, repeat feedback, Select all, heading format, denied/missing/insecure clipboard selection fallback and recovery, focus, 320px layout, accessible name, no-JS content.');
+		console.log('PASS: exact code, multiple blocks, Enter/Space, repeat feedback, one code control, heading format, denied/missing/insecure clipboard selection fallback and recovery, focus, 320px layout, accessible name, no-JS Select all and content.');
 	} finally {
 		await browser.close();
 	}
