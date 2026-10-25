@@ -5,7 +5,8 @@
 }
 
 /* Make keyboard focus clearly visible, whatever the style does for links */
-.copylinks-target:focus-visible {
+.copylinks-target:focus-visible,
+.copylinks-code:focus-visible {
 	outline: 2px solid currentColor;
 	outline-offset: 2px;
 }
@@ -52,4 +53,16 @@
 	.copylinks-target::after {
 		transition: none;
 	}
+}
+
+/* Text button beside Select all, using the codebox header's typography. */
+.codebox .copylinks-code {
+	margin-inline-start: 0.75em;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	text-decoration: underline;
+	cursor: copy;
 }

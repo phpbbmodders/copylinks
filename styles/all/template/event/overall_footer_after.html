@@ -1,5 +1,10 @@
 {% if not S_IS_BOT %}
 	<div id="copylinks-status" class="copylinks-sr-only" role="status" aria-live="polite"
+		data-code-label="{{ lang('COPYLINKS_CODE')|e('html_attr') }}"
+		data-code-failed-label="{{ lang('COPYLINKS_CODE_FAILED_LABEL')|e('html_attr') }}"
+		data-code-copied-label="{{ lang('COPYLINKS_CODE_COPIED_LABEL')|e('html_attr') }}"
+		data-code-copied="{{ lang('COPYLINKS_CODE_COPIED')|e('html_attr') }}"
+		data-code-copy-failed="{{ lang('COPYLINKS_CODE_COPY_FAILED')|e('html_attr') }}"
 		data-plain-url="{% if S_COPYLINKS_PLAIN_URL %}1{% else %}0{% endif %}"
 		data-board-url="{{ U_COPYLINKS_BOARD|e('html_attr') }}"
 		data-php-ext="{{ COPYLINKS_PHP_EXT|e('html_attr') }}"

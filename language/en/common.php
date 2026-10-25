@@ -19,6 +19,11 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
+	'COPYLINKS_CODE'			=> 'Copy code',
+	'COPYLINKS_CODE_FAILED_LABEL'	=> 'Copy manually',
+	'COPYLINKS_CODE_COPIED_LABEL'	=> 'Copied!',
+	'COPYLINKS_CODE_COPIED'		=> 'The code has been copied.',
+	'COPYLINKS_CODE_COPY_FAILED'	=> 'Automatic copying failed. The code is selected; copy it manually.',
 	'COPYLINKS_HINT_PLAIN'	=> 'Copy a link to this',
 	'COPYLINKS_HINT'		=> 'Copy a link to this as BBCode',
 	'COPYLINKS_COPIED'		=> 'The link has been copied.',
