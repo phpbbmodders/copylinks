@@ -239,7 +239,7 @@
 		mark(anchor, 'faq');
 	});
 
-	// Keep Select all intact and add a native button beside it. Reading the
+	// Replace Select all only after the copy button is ready. Reading the
 	// rendered code preserves indentation, line breaks and highlighted text.
 	document.querySelectorAll('.codebox').forEach(function (box) {
 		var header = box.querySelector('p');
@@ -267,7 +267,12 @@
 				announce(codeFailedMessage);
 			});
 		});
-		header.appendChild(button);
+		var selectAll = header.querySelector('a[onclick*="selectCode("]');
+		if (selectAll) {
+			header.replaceChild(button, selectAll);
+		} else {
+			header.appendChild(button);
+		}
 	});
 
 	// One listener for every control. Clicks with a modifier key or a
