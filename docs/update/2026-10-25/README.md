@@ -10,15 +10,15 @@ states. The PNGs retain their original resolution.
 
 ## Copy code control
 
-A separate Copy code button appears beside Select all. Keyboard focus remains visible.
+Copy code replaces Select all when JavaScript runs, leaving one control. With JavaScript off, the original Select all link remains. Keyboard focus stays visible.
 
-<a href="01-copy-code.png"><img src="01-copy-code.png" width="640" height="67" alt="Copy code button with a visible keyboard focus outline beside Select all"></a>
+<a href="01-copy-code.png"><img src="01-copy-code.png" width="640" height="67" alt="Single Copy code button with a visible keyboard focus outline"></a>
 
 ## Successful copy
 
 The button shows Copied! after plain code is copied. Indentation and line breaks are preserved.
 
-<a href="02-code-copied.png"><img src="02-code-copied.png" width="640" height="67" alt="Copied success feedback beside Select all"></a>
+<a href="02-code-copied.png"><img src="02-code-copied.png" width="640" height="67" alt="Single code-copy control showing Copied success feedback"></a>
 
 ## Manual-copy fallback
 
