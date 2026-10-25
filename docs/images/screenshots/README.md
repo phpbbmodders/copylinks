@@ -20,6 +20,14 @@ Clicking a question in the FAQ copies a link to that question.
 
 <a href="copylinks-faq.png"><img src="copylinks-faq.png" width="700" alt="Tick after copying an FAQ question"></a>
 
+## Code block
+
+The separate **Copy code** button copies plain code without BBCode. **Select all**
+remains available. This Playwright screenshot shows the success label on phpBB
+3.3 after an actual clipboard write and read.
+
+<a href="copylinks-code.png"><img src="copylinks-code.png" width="700" height="85" alt="Copied feedback beside Select all in a code block"></a>
+
 ## ACP settings
 
 **Extensions → Copy Links → Settings**: choose plain URLs or BBCode (the default), turn the icon on or off, and choose which Font Awesome icon it is. With the icon off, only the tick shows after a copy.

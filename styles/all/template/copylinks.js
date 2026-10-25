@@ -2,7 +2,8 @@
  * Copy Links extension for the phpBB Forum Software package
  *
  * Turns forum, topic, post and FAQ headings into "copy link" controls. A
- * click copies a BBCode link or a plain URL to the clipboard.
+ * click copies a BBCode link or a plain URL to the clipboard. Code blocks
+ * have a separate control that copies their contents as plain text.
  * Links are built from IDs, so they never carry a session ID, and always point
  * at the forum, topic or post itself rather than a page within it.
  *
@@ -24,6 +25,13 @@
 	var hint = status.getAttribute('data-hint');
 	var copiedMessage = status.getAttribute('data-copied');
 	var failedMessage = status.getAttribute('data-copy-failed');
+	var codeLabel = status.getAttribute('data-code-label');
+	var codeCopiedLabel = status.getAttribute('data-code-copied-label');
+	var codeCopiedMessage = status.getAttribute('data-code-copied');
+	var codeFailedMessage = status.getAttribute('data-code-copy-failed');
+	var codeFailedLabel = status.getAttribute('data-code-failed-label');
+	var announceTimer;
+	var statusTimer;
 
 	// How long the tick and the status message stay, in milliseconds
 	var SHOW_COPIED_FOR = 2000;
@@ -107,48 +115,70 @@
 	}
 
 	/**
+	 * Announce the latest action, including repeated identical messages.
+	 *
+	 * @param {string} message
+	 */
+	function announce(message) {
+		window.clearTimeout(announceTimer);
+		window.clearTimeout(statusTimer);
+		status.textContent = '';
+		announceTimer = window.setTimeout(function () {
+			status.textContent = message;
+		}, ANNOUNCE_DELAY);
+		statusTimer = window.setTimeout(function () {
+			status.textContent = '';
+		}, SHOW_COPIED_FOR);
+	}
+
+	/**
 	 * Show the tick and announce the copy to screen readers.
 	 *
 	 * @param {Element} target
+	 * @param {string} message
 	 */
-	function showCopied(target) {
+	function showCopied(target, message) {
 		var targetIcon = target.querySelector('.copylinks-icon');
 
 		target.classList.add('copylinks-copied');
+		if (target.classList.contains('copylinks-code')) {
+			target.textContent = codeCopiedLabel;
+		}
 		if (targetIcon) {
 			targetIcon.classList.remove(icon);
 			targetIcon.classList.add(COPIED_ICON);
 		}
 
-		// Clear first so the same message is read out again on a repeat copy
-		status.textContent = '';
-		window.setTimeout(function () {
-			status.textContent = copiedMessage;
-		}, ANNOUNCE_DELAY);
+		announce(message);
 
 		// A repeat copy restarts the timer instead of being cut short by the
 		// previous one
 		window.clearTimeout(target.copylinksTimer);
 		target.copylinksTimer = window.setTimeout(function () {
 			target.classList.remove('copylinks-copied');
+			if (target.classList.contains('copylinks-code')) {
+				target.textContent = codeLabel;
+			}
 			if (targetIcon) {
 				targetIcon.classList.remove(COPIED_ICON);
 				targetIcon.classList.add(icon);
 			}
-			status.textContent = '';
 		}, SHOW_COPIED_FOR);
 	}
 
 	/**
 	 * Copy text to the clipboard, or let the reader copy it by hand when the
-	 * browser does not allow it (plain http, private windows, old browsers).
+	 * browser does not allow it (for example, on plain http).
 	 *
 	 * @param {Element} target
 	 * @param {string} text
+	 * @param {string} successMessage
+	 * @param {string} failureMessage
+	 * @param {Function} [fallback] Optional manual-copy action for code blocks
 	 */
-	function copy(target, text) {
-		var copyByHand = function () {
-			window.prompt(failedMessage, text);
+	function copy(target, text, successMessage, failureMessage, fallback) {
+		var copyByHand = fallback || function () {
+			window.prompt(failureMessage, text);
 		};
 
 		if (!navigator.clipboard || !window.isSecureContext) {
@@ -157,7 +187,7 @@
 		}
 
 		navigator.clipboard.writeText(text).then(function () {
-			showCopied(target);
+			showCopied(target, successMessage);
 		}, copyByHand);
 	}
 
@@ -209,6 +239,37 @@
 		mark(anchor, 'faq');
 	});
 
+	// Keep Select all intact and add a native button beside it. Reading the
+	// rendered code preserves indentation, line breaks and highlighted text.
+	document.querySelectorAll('.codebox').forEach(function (box) {
+		var header = box.querySelector('p');
+		var code = box.querySelector('pre > code');
+		if (!header || !code) {
+			return;
+		}
+
+		var button = document.createElement('button');
+		button.type = 'button';
+		button.className = 'copylinks-code';
+		button.textContent = codeLabel;
+		button.addEventListener('click', function () {
+			copy(button, code.innerText, codeCopiedMessage, codeFailedMessage, function () {
+				// Select the code in place: a prompt's single-line field is not
+				// suitable for manually copying multiline code.
+				var selection = window.getSelection();
+				var range = document.createRange();
+				range.selectNodeContents(code);
+				selection.removeAllRanges();
+				selection.addRange(range);
+				window.clearTimeout(button.copylinksTimer);
+				button.classList.remove('copylinks-copied');
+				button.textContent = codeFailedLabel;
+				announce(codeFailedMessage);
+			});
+		});
+		header.appendChild(button);
+	});
+
 	// One listener for every control. Clicks with a modifier key or a
 	// middle button keep their normal behaviour, such as opening a new tab.
 	document.addEventListener('click', function (event) {
@@ -229,6 +290,6 @@
 			window.location.hash = fragment;
 		}
 		target.focus({preventScroll: true});
-		copy(target, plainUrl ? url : bbcodeFor(url, headingText(target)));
+		copy(target, plainUrl ? url : bbcodeFor(url, headingText(target)), copiedMessage, failedMessage);
 	});
 })();
