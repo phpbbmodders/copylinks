@@ -18,3 +18,21 @@ COPYLINKS_TEST_URL='http://localhost:18127/viewtopic.php?t=1' \
 Optionally set `COPYLINKS_SCREENSHOT` to save the first code block at the narrow
 viewport. Repeat on phpBB 3.3 and 4.0 and with each ACP link-format setting.
 These checks do not test spoken screen reader output.
+
+## Dated update screenshots
+
+`capture_update.py` reuses `phpbb-release-tools/phpbb-test-board/screenshots.py`
+to capture the code-copy button, success label and manual-copy selection on a
+local seeded topic. It leaves board data unchanged and controls clipboard
+outcomes for reproducible screenshots. Run with the shared tool's Python venv:
+
+```bash
+../phpbb-release-tools/phpbb-test-board/.venv/bin/python \
+  tests/browser/capture_update.py \
+  --url 'http://localhost:18127/viewtopic.php?t=1' \
+  --out docs/update/2026-10-25
+```
+
+Each dated output directory also needs a README with captions and linked,
+proportionally sized previews. Link release-update posts to that dated gallery;
+the complete README screenshot gallery remains separate.
